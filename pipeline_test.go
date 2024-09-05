@@ -259,6 +259,13 @@ func TestGeneratePipeline(t *testing.T) {
 				{GithubStatus: GithubStatusNotification{Context: "my-custom-status"}},
 				{Slack: "@someuser", Condition: "build.state === \"passed\""},
 			},
+			Plugins: []interface{}{
+				map[string]interface{}{
+					"docker-compose#v1.0.0": map[string]interface{}{
+						"run": "app",
+					},
+				},
+			},
 		},
 		{
 			Group:   "my group",
@@ -315,6 +322,9 @@ steps:
       context: my-custom-status
   - slack: '@someuser'
     if: build.state === "passed"
+  plugins:
+  - docker-compose#v1.0.0:
+      run: app
 - group: my group
   steps:
   - trigger: foo-service-pipeline

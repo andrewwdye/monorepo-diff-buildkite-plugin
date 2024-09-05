@@ -97,6 +97,9 @@ func TestPluginShouldUnmarshallCorrectly(t *testing.T) {
 							{ "pagerduty_change_event": "636d22Yourc0418Key3b49eee3e8" },
 							{ "github_commit_status": { "context" : "my-custom-status" } },
 							{ "slack": "@someuser", "if": "build.state === 'passed'" }
+						],
+						"plugins": [
+							{ "docker-compose#v1.0.0" : { "run": "app" } }
 						]
 					}
 				},
@@ -201,6 +204,13 @@ func TestPluginShouldUnmarshallCorrectly(t *testing.T) {
 						{Basecamp: "https://basecamp-url"},
 						{GithubStatus: GithubStatusNotification{Context: "my-custom-status"}},
 						{Slack: "@someuser", Condition: "build.state === 'passed'"},
+					},
+					Plugins: []interface{}{
+						map[string]interface{}{
+							"docker-compose#v1.0.0": map[string]interface{}{
+								"run": "app",
+							},
+						},
 					},
 				},
 			},
